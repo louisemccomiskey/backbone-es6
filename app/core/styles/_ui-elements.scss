@@ -1,0 +1,18 @@
+//------------------------------
+//  Global Styling for all UI elements.
+//  These can be overridden in page specific stylesheets if needed.
+//------------------------------
+
+
+//------------------------------
+// ICONS
+//------------------------------
+
+
+//------------------------------
+// PRIMARY BUTTONS
+// can be <buttons> or <a> links
+//------------------------------
+.btn-primary {
+    @extend %base-btn-styling;
+}

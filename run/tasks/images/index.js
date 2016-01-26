@@ -12,7 +12,7 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin');
 
 gulp.task('images', function() {
-    return gulp.src(globalSettings.taskConfiguration.images.sourcePaths, { base: './' })
+    return gulp.src(globalSettings.taskConfiguration.images.sourcePaths, { base: './app/' })
                 .pipe(imagemin(globalSettings.taskConfiguration.images.imageminOptions))
                 .pipe(gulp.dest(globalSettings.destPath));
 });

@@ -1,0 +1,168 @@
+// --------------------------
+// MAIN GLOBAL STYLES
+// normalize has already been added at this point.
+// --------------------------
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html, body {
+  -webkit-font-smoothing: antialiased;
+}
+
+
+html {
+    height: 100%;
+    font-size: 62.5%;
+    line-height: 1;
+}
+
+body {
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+
+    font-size: 1.6rem;
+    font-weight: normal;
+    @extend %primary-font-medium;
+    line-height: 1;
+    background-color: map-get($color, body);
+    color: map-get($color, text-primary);
+}
+
+
+
+// --------------------------
+// RESETS
+// --------------------------
+svg {
+    overflow: hidden;
+    vertical-align: middle;
+    position: relative;
+    box-sizing: content-box;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    border:0;
+    border-radius: none;
+    outline: none;
+    background-color: transparent;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+img{
+  -webkit-user-drag: none;
+}
+
+
+// --------------------------
+// GLOBAL TYPOGRAPHY STYLES
+// --------------------------
+h1, h2, h3, h4 {
+    text-rendering: optimizeLegibility;
+    margin: 0;
+    @extend %primary-font-medium;
+}
+
+a {
+    text-decoration: none;
+    color: map-get($color, text-primary);
+}
+
+p {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    margin: 0 0 2.1rem;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+
+// --------------------------
+// HELPERS.
+// --------------------------
+
+/* States */
+.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.is-highlighted {
+    color:#fdd631;
+}
+
+/* having this class and adding/removing .is-hidden will create a fade in out effect. */
+.transition-toggle {
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 0s linear, opacity 500ms linear;
+
+    &.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        transition-delay: 500ms, 0ms;
+    }
+}
+
+
+/* Clearfix for containers with floats. */
+.cf {
+    &::before,
+    &::after {
+        content: " ";
+        display: table;
+    }
+
+    &::after {
+        clear: both;
+    }
+}
+
+// Use this class instead of any text-indent: -9999px techniques.
+// It is much more performant as the browser doesn't need to make
+// a 9999px canvas in its memory.
+.ir-new {
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    @extend %secondary-font;
+}
+
+
+// --------------------------
+// All Images to be preloaded should have this class, their parent should have the below class also.
+// --------------------------
+.preload-image {
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0ms linear 500ms,opacity 500ms linear;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+
+    &.is-loaded {
+      visibility: visible;
+      opacity: 1;
+      transition-delay: 0ms;
+    }
+}
+
+.preload-image-container {
+    background: #efefef;
+    position: relative;
+
+    &.img-is-loaded {
+        background:none;
+
+        .circle-loader {
+            display:none;
+        }
+    }
+}

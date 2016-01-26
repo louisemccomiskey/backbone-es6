@@ -1,0 +1,85 @@
+//------------------------------
+// GLOBAL Breakpoints and breakpoint mixin
+// 
+// To use just add for e.g : @include bp(mobile-small-max){}
+//------------------------------
+$bps: (
+    mobileSmallMax: 359px,
+    mobileBase: 360px,
+    mobileSmall: 361px,
+    mobileMid: 481px,
+    midUp: 641px,
+    tabMax: 767px,
+    tabletUp: 768px,
+    deskUp: 1020px,
+    deskMid: 1200px,
+    maxUp: 1400px
+);
+
+@mixin bp($point) {
+    // <-- 359
+    @if $point == mobile-small-max {
+        @media (max-width: map-get($bps, mobileSmallMax)) { @content; }
+    }
+
+    // <-- 360 -- Samsung S5 needs to be included in this breakpoint too.
+    @if $point == mobile-base-max {
+        @media (max-width: map-get($bps, mobileBase)) { @content; }
+    }
+
+    @if $point == mobile-small {
+        @media (max-width: map-get($bps, mobileSmall)) { @content; }
+    }
+
+    // 480 -->
+    @else if $point == mobile-mid {
+        @media (min-width: map-get($bps, mobileMid)) { @content; }
+    }
+
+    // 600 -->
+    @else if $point == mid-up {
+        @media (min-width: map-get($bps, midUp)) { @content; }
+    }
+
+    // <-- 767
+    @else if $point == tab-max {
+        @media (max-width: map-get($bps, tabMax)) { @content; }
+    }
+
+    // 768 -->
+    @else if $point == tab-up {
+        @media (min-width: map-get($bps, tabletUp)) { @content; }
+    }
+
+    // 1020 -->
+    @else if $point == desk-up {
+        @media (min-width: map-get($bps, deskUp)) { @content; }
+    }
+
+
+    // 1200 -->
+    @else if $point == desk-mid {
+        @media (min-width: map-get($bps, deskMid)) { @content; }
+    }
+
+
+    // 1400-->
+    @else if $point == max-up {
+        @media (min-width: map-get($bps, maxUp)) { @content; }
+    }
+}
+
+
+//  To help with creating a scalable element within an aspect ratio.
+//  Default is 100% making a square,
+//  Set height:auto; on any element you are adding this too.
+@mixin before-aspect-ratio-custom($paddingBottom: 100%) {
+
+    &:before {
+        content: '';
+        display: block;
+        height: 0;
+        width: 100%;
+        padding-bottom: $paddingBottom;
+    }
+}

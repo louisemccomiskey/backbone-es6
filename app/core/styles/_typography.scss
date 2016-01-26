@@ -1,0 +1,21 @@
+// Font Family Extends
+$primary-font-family: Arial, sans-serif;
+$secondary-font-family:Georgia, serif;
+$secondary-font-family-italic:Georgia, serif;
+
+%primary-font-medium {
+    font-family: $primary-font-family;
+    font-weight: normal;
+}
+
+%secondary-font {
+    font-family: $secondary-font-family;
+    font-weight: normal;
+}
+
+%secondary-font-italic {
+    font-family: $secondary-font-family-italic;
+    font-weight: normal;
+}
+
+

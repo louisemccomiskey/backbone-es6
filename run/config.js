@@ -1,5 +1,10 @@
 'use strict';
 
+// Loading dependencies.
+var resolve = require('resolve'),
+    path = require('path'),
+    webpack = require('webpack');
+
 module.exports = {
 
     /**
@@ -9,7 +14,7 @@ module.exports = {
      *
      * @type {Array}
      */
-    scriptSourcePaths: ['./js/src/**/*.js'],
+    scriptSourcePaths: ['./app/**/*.js'],
 
     /**
      * Settings for sourcemaps across JS and CSS bundles.
@@ -66,13 +71,13 @@ module.exports = {
      */
     taskConfiguration: {
         build: {
-            sourcePaths: ['./fonts/**/!(dir.txt)']
+            sourcePaths: ['./app/fonts/**/!(dir.txt)']
         },
         html: {
-            sourcePaths: ['./html/**/*.html']
+            sourcePaths: ['./app/html/**/*.html']
         },
         images: {
-            sourcePaths: ['./img/**/!(dir.txt)'],
+            sourcePaths: ['./app/img/**/!(dir.txt)'],
             imageminOptions: {
                 svgoPlugins: [
                     { removeViewBox: false },
@@ -115,6 +120,7 @@ module.exports = {
              * @type {Array}
              */
             bundles: [
+                { sourceFilePath: './app/core/styles/index.scss', outputFileName: 'main' }
             ],
 
             /**
@@ -170,17 +176,50 @@ module.exports = {
             webpackSettings: {
                 watch: false,
                 entry: {
+                    main: "./app/core/scripts/index.js"
                 },
                 output: {
                     filename: '[name].js'
                 },
                 module: {
                     loaders: [
+                        // Loads HTML files as strings.
+                        // {test: /\.html$/, loader: 'html'},
+                        
+                        // Loads Handlebars templates through the loader.
+                        {
+                            test: /\.hbs$/,
+                            loader: 'handlebars-loader',
+                            query: {
+                                helperDirs: path.join(__dirname, './app/core/scripts/handlebarsFiles')
+                            }
+                        },
+                        
+                         // Loads Backbone without jQuery as a dependancy
+                        {test: /backbone\.js$/, loader: 'imports?define=>false'},
+
                         { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel?presets[]=es2015' }
                     ]
                 },
                 plugins: [
-                ]
+                    new webpack.IgnorePlugin(/^jquery$/)
+                ],
+
+                //  Replace modules with other modules or paths (to point at our third_party vendors).
+                //  NOTE: `browser` field of `package.json` worked but only for our app dependencies.
+                //  Any third-party library that had requires didn't seem to read from `browser`.
+                resolve: {
+                    alias: {
+                        'App': resolve.sync('../app/core/scripts/app.js'),
+                        'baseView': resolve.sync('../app/core/scripts/BaseView.js'),
+                        'config': resolve.sync('../app/core/scripts/config.js'),
+                        'dataStore': resolve.sync('../app/core/scripts/dataStore.js'),
+                        'eventBus': resolve.sync('../app/core/scripts/eventBus.js'),
+                        'router': resolve.sync('../app/core/scripts/router.js'),
+                        'utils': resolve.sync('../app/core/scripts/utils.js'),
+                        'imagePreloader': resolve.sync('../third_party/js/image-preloader.js'),
+                    }
+                }
             }
         },
         test: {
@@ -188,9 +227,9 @@ module.exports = {
         },
         watch: {
             sourcePaths: {
-                html: ['./html/**/*.html'],
-                styles: ['./css/libs/**/*.scss', './css/src/**/*.scss'],
-                scripts: ['./js/libs/**/*.js', './js/src/**/*.js']
+                html: ['./app/html/**/*.html'],
+                styles: ['./third_party/css/**/*.scss', './app/**/*.scss'],
+                scripts: ['./third_party/js/**/*.js', './app/**/*.js']
             }
         }
     }

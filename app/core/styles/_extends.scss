@@ -1,0 +1,23 @@
+// --------------------------
+// Global Mobile and desktop side gutters.
+// --------------------------
+%side-gutters {
+	padding-left: map-get($gutter, small);
+	padding-right: map-get($gutter, small);
+
+    @include bp(tab-up) {
+		padding-left: map-get($gutter, xlarge);
+		padding-right: map-get($gutter, xlarge);
+    }
+}
+
+// --------------------------
+// Some pages need a bottom gutter too.
+// --------------------------
+%bottom-gutters {
+    padding-bottom: 7rem;
+
+    @include bp(tab-up) {
+        padding-bottom: 7rem;
+    }
+}

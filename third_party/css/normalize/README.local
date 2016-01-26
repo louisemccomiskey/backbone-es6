@@ -1,0 +1,14 @@
+URL: https://github.com/necolas/normalize.css/archive/3.0.3.tar.gz
+
+License: MIT
+License File: LICENSE
+
+Description:
+"A modern, HTML5-ready alternative to CSS resets."
+Used to reset browser-specific styles back to a normal baseline, as well as
+deal with any inconsistencies.
+
+Local Modifications:
+LICENSE file has been created for compliance purposes. Not included in
+the original distribution, it was originally named "LICENSE.md". Also renamed
+"normalize.css" to "normalise.scss" so it can be included via SASS.
