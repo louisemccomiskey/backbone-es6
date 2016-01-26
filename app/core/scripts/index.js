@@ -16,18 +16,15 @@ Backbone.ajax = NativeAjax;
 Backbone.View = NativeView;
 
 // import App from 'App';
+// TODO figure out why when loading as import the Backbone nativeView doesn't load properly.
 var App = require('./app');
-// var App = require('app');
 
-console.log(Backbone.View, 'BackboneView');
 /**
  *  Kicks off the App as soon as onDOMContentLoaded is ready.
  */
 
 function onDOMContentLoaded() {
-    console.log('App', App);
-   // new App();
-   App.init();
+	App.init();
 }
 
 

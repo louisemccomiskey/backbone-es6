@@ -8,26 +8,25 @@
 
 import Backbone from 'backbone';
 import eventBus from 'eventBus';
+import {props} from 'decorators';
+
+@props({
+	routes: {
+		'(/)'       : 'homePage',
+		'about(/)'  : 'aboutPage' 
+	},
+	routeHistory: []
+})
 
 export default new class Router extends Backbone.Router{
     
-    constructor() {
-        super({
-            routes:  {
-                '(/)'       : 'home',
-                'about(/)'  : 'about' 
-            }
-        });
-    }
-    
-	initialize(){
-		this.routeHistory = [];
-	}
+	initialize(){}
 
-	home() {
+	homePage() {
 		this.changePage({id :'home'});
 	}
-	about() {
+
+	aboutPage() {
         this.changePage({id :'about'});
 	}
 
@@ -42,7 +41,6 @@ export default new class Router extends Backbone.Router{
 		console.info('ROUTER -- Switching to the', options.id, ' page.', options);
 	
     	this.setTitle(options.id);
-
 		eventBus.trigger(eventBus.eventKeys.CHANGE_PAGE, options, false);
 	}
 

@@ -198,8 +198,9 @@ module.exports = {
                          // Loads Backbone without jQuery as a dependancy
                         {test: /backbone\.js$/, loader: 'imports?define=>false'},
 
-                        { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel?presets[]=es2015' }
-                    ]
+                        // { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel?presets[]=es2015' }
+                        { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel?plugins[]=transform-decorators-legacy,presets[]=es2015' }
+             ]
                 },
                 plugins: [
                     new webpack.IgnorePlugin(/^jquery$/)
@@ -210,14 +211,16 @@ module.exports = {
                 //  Any third-party library that had requires didn't seem to read from `browser`.
                 resolve: {
                     alias: {
+                        'BackboneWrapper': resolve.sync('../app/core/scripts/backboneWrapper.js'),
                         'App': resolve.sync('../app/core/scripts/app.js'),
                         'baseView': resolve.sync('../app/core/scripts/BaseView.js'),
                         'config': resolve.sync('../app/core/scripts/config.js'),
                         'dataStore': resolve.sync('../app/core/scripts/dataStore.js'),
+                        'decorators': resolve.sync('../app/core/scripts/decorators.js'),
                         'eventBus': resolve.sync('../app/core/scripts/eventBus.js'),
                         'router': resolve.sync('../app/core/scripts/router.js'),
                         'utils': resolve.sync('../app/core/scripts/utils.js'),
-                        'imagePreloader': resolve.sync('../third_party/js/image-preloader.js'),
+                        'imagePreloader': resolve.sync('../third_party/js/image-preloader.js')
                     }
                 }
             }

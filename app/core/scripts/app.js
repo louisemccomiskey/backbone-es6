@@ -5,22 +5,21 @@
  */
 'use strict';
 
-console.info('App Page Loading Dependancies 2');
-
 // Loading Dependancies.
 import _ from 'underscore';
 import Backbone from 'backbone';
 import config from 'config';
 import eventBus from 'eventBus';
 import router from 'router';
-import FastDOM from 'fastdom';
 import utils from 'utils';
+// import FastDOM from 'fastdom';
 
 //Import Components
+import HeaderComponent from '../../components/header/scripts/index';
 
 //Import Views
 import HomeView from '../../views/home/scripts/index';
-// import AboutView from '../../views/about/scripts/index';
+import AboutView from '../../views/about/scripts/index';
 
 
 var App = {
@@ -33,7 +32,7 @@ var App = {
             view: HomeView
         },
         'about': {
-            // view: AboutView
+            view: AboutView
         }
     },
 
@@ -42,7 +41,7 @@ var App = {
 
         this.mainContainer = document.querySelector('.js-gbl-container');
 
-        // this.setUpGlobalComponents();
+        this.setUpGlobalComponents();
         this.setUpGlobalEventListeners();
 
         Backbone.history.start({pushState: true});
@@ -54,10 +53,12 @@ var App = {
     */
     setUpGlobalComponents: function(){
 
-//        var globalHeader = new HeaderComponent({
-//            el: document.querySelector('.js-gbl-header'),
-//            parent: this
-//        });  
+        var globalHeader = new HeaderComponent({
+           el: document.querySelector('.js-gbl-header'),
+           parent: this
+        }); 
+
+        console.log(globalHeader, 'globalHeader'); 
     },
 
     setUpGlobalEventListeners: function() {
@@ -97,7 +98,6 @@ var App = {
     * @param  options - object from router.js id - required, uuid/ locale - required from preview-video deeplink.
     */
     loadView: function(options) {
-        console.log(options, 'options loadView');
 
         // Set the current view to be the old view before updating to the new current view.
         this.currentId = options.id;
@@ -131,10 +131,8 @@ var App = {
     },
 
     startRenderingView: function() {
-       
         // FastDOM.write(function() {
-            var self = this;
-            self.mainContainer.appendChild(self.currentView.render().el);
+            this.mainContainer.appendChild(this.currentView.render().el);
         // }, this);
     }
 };

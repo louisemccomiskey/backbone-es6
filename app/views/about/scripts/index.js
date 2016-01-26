@@ -19,32 +19,29 @@ import {props} from 'decorators';
 
 @props({
     tagName:    'section',
-    className:  'page page-home',
+    className:  'page page-about',
     template:   template,
     events:     {
       'click .js-FB__login'   : 'onLogin',
     },
     ui:{}
 })
-export default class HomeView extends BaseView{
+export default class AboutView extends BaseView{
 
     constructor(o) {
         super(o);
     }
 
     render() {
-        console.info('--> HomeView render()');
+        console.info('--> AboutView render()');
 
         this.el.innerHTML = this.template({});
-
-       // Setup the locale selector component.
-//        let localeWrapper = this.el.querySelector('.js-locale-selector-ctn');
-//        localeWrapper.appendChild(this.components.localeSelector.render().el);
       
-       setTimeout(() => {
+        setTimeout(() => {
            this.bindUIElements();
            this.animatePageIn().then(this.pageAnimatingInCompleted.bind(this));
-       }, 0);
+        }, 0);
+
        return this;
     }
 
@@ -57,14 +54,7 @@ export default class HomeView extends BaseView{
     }
 
     dispose() {
-        console.info('--> HomeView.dispose');
-
-        // Need to correctly dispose of all components here.
-//        if(this.components) {
-//            _.each(this.components, function(selector, key) {
-//                selector.dispose();
-//            }, this);
-//        }
+        console.info('--> AboutView.dispose');
         super.dispose();
     }
 }
